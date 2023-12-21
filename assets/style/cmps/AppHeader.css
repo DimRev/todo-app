@@ -1,3 +1,9 @@
+.app-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .app-header .main-nav-section{
   display: flex;
   gap: 1em;
