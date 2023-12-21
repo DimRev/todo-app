@@ -7,6 +7,7 @@ export const SET_USER_SCORE = 'SET_USER_SCORE'
 
 const initialState = {
   loggedinUser: userService.getLoggedinUser(),
+  todos: [],
 }
 
 function appReducer(state = initialState, action = {}) {

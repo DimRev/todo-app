@@ -1,11 +1,18 @@
-export function TodoList({}) {
+export function TodoList({ todos, onToggleTodo }) {
+  if (!todos) return
   return (
     <section className="todo-list-section">
       <ul>
-        <li>
-          <button className="toggle-todo-btn">Toggle todo</button>{' '}
-          <span>todo</span>
-        </li>
+        {todos.map((todo) => (
+          <li key={todo._id}>
+            <button
+              className="toggle-todo-btn"
+              onClick={() => onToggleTodo(todo)}>
+              {todo.isDone ? 'done' : 'undone'}
+            </button>
+            <span className={todo.isDone ? 'done' : 'undone'}>{todo.todo}</span>
+          </li>
+        ))}
       </ul>
     </section>
   )
