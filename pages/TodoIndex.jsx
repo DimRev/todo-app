@@ -1,8 +1,8 @@
 const { useState, useEffect } = React
 
-import { TodoFilter } from '../cmps/TodoFilter.jsx'
-import { TodoList } from '../cmps/TodoList.jsx'
-import { TodoInput } from '../cmps/TodoInput.jsx'
+import { TodoFilter } from '../cmps/TodoIndexCmps/TodoFilter.jsx'
+import { TodoList } from '../cmps/TodoIndexCmps/TodoList.jsx'
+import { TodoInput } from '../cmps/TodoIndexCmps/TodoInput.jsx'
 
 import { todoService } from '../services/todo.service.js'
 
@@ -18,6 +18,7 @@ export function TodoIndex() {
   function loadTodos() {
     todoService.query().then((todos) => {
       setTodos(todos)
+      console.log(todos);
     })
   }
 
@@ -32,9 +33,15 @@ export function TodoIndex() {
     })
   }
 
+  function onAddTodo(newTodo) {
+    todoService.save(newTodo).then((addedTodo) =>{
+      setTodos((prevTodos) => [addedTodo, ...prevTodos])
+    })
+  }
+
   return (
     <section className="todo-index-page">
-      <TodoInput />
+      <TodoInput onAddTodo={onAddTodo} />
       <TodoList todos={todos} onToggleTodo={onToggleTodo} />
       <TodoFilter />
     </section>
