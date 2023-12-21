@@ -17,15 +17,15 @@ export class App extends React.Component {
         <Router>
           <section className="app">
             <AppHeader />
-            <main>
+            <main className='app-main'>
               <Routes>
                 <Route element={<HomePage />} path="/" />
                 <Route element={<TodoIndex />} path="/todo" />
                 <Route element={<AboutPage />} path="/about" />
               </Routes>
             </main>
-          </section>
           <AppFooter />
+          </section>
         </Router>
       </Provider>
     )

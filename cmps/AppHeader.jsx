@@ -5,7 +5,7 @@ const { useNavigate } = ReactRouter
 
 export function AppHeader() {
   return (
-    <header className="main-header">
+    <header className="app-header">
       <section className="main-logo"></section>
       <section className="main-nav-section">
         <NavLink to="/">Home</NavLink>

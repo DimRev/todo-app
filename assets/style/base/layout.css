@@ -1,0 +1,23 @@
+.app{
+  display: flex;
+  flex-direction: column;
+
+  height: 100dvh;
+}
+
+.app-main {
+  flex: 1; /* Take up remaining vertical space */
+}
+
+.app-header {
+  flex: 0 0 auto; /* Keep header at its natural height */
+  background-color: lightskyblue;
+  padding: 10px;
+}
+
+.app-footer {
+  flex: 0 0 auto; /* Keep footer at its natural height */
+  background-color: lightskyblue;
+  padding: 5px;
+  text-align: center;
+}

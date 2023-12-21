@@ -5,7 +5,7 @@ const { useNavigate } = ReactRouter
 
 export function AppFooter() {
   return (
-    <footer className="main-footer">
+    <footer className="app-footer">
       <h1>footer</h1>
     </footer>
   )
