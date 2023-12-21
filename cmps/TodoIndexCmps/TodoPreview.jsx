@@ -2,9 +2,9 @@ export function TodoPreview({ onToggleTodo, todo }) {
   return (
     <React.Fragment>
       <button className="toggle-todo-btn" onClick={() => onToggleTodo(todo)}>
-        {todo.isDone ? 'done' : 'undone'}
+        {todo.isDone ? 'active' : 'complete'}
       </button>
-      <span className={todo.isDone ? 'done' : 'undone'}>{todo.todo}</span>
+      <span className={todo.isDone ? 'active' : 'complete'}>{todo.todo}</span>
     </React.Fragment>
   )
 }

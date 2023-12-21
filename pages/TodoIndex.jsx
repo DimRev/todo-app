@@ -8,17 +8,21 @@ import { todoService } from '../services/todo.service.js'
 
 export function TodoIndex() {
   const [todos, setTodos] = useState(null)
-  const [filterBy, onFilterBy] = useState(null)
+  const [filterBy, setFilterBy] = useState('all')
   const [todoCount, setTodoCount] = useState(0)
 
   useEffect(() => {
     loadTodos()
   }, [])
 
+  useEffect(() => {
+    loadTodos()
+  }, [filterBy])
+
   function loadTodos() {
-    todoService.query().then((todos) => {
+    todoService.query(filterBy).then((todos) => {
       setTodos(todos)
-      console.log(todos);
+      console.log(todos)
     })
   }
 
@@ -34,16 +38,20 @@ export function TodoIndex() {
   }
 
   function onAddTodo(newTodo) {
-    todoService.save(newTodo).then((addedTodo) =>{
+    todoService.save(newTodo).then((addedTodo) => {
       setTodos((prevTodos) => [addedTodo, ...prevTodos])
     })
+  }
+
+  function onFilterBy(type) {
+    setFilterBy(type)
   }
 
   return (
     <section className="todo-index-page">
       <TodoInput onAddTodo={onAddTodo} />
       <TodoList todos={todos} onToggleTodo={onToggleTodo} />
-      <TodoFilter />
+      <TodoFilter onFilterBy={onFilterBy} />
     </section>
   )
 }

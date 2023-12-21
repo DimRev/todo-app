@@ -14,9 +14,19 @@ export const todoService = {
   getEmptyTodo,
 }
 
-function query() {
+function query(filterBy) {
   // return axios.get(BASE_URL).then(res => res.data)
-  return storageService.query(STORAGE_KEY)
+  return storageService.query(STORAGE_KEY).then((todos) => {
+    console.log(filterBy);
+    switch (filterBy) {
+      case 'all':
+        return todos
+      case 'active':
+        return todos.filter(todo => todo.isDone)
+        case 'complete':
+        return todos.filter(todo => !todo.isDone)
+    }
+  })
 }
 function getById(todoId) {
   return storageService.get(STORAGE_KEY, todoId)
