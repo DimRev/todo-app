@@ -1,4 +1,4 @@
-export function TodoFilter({ onFilterBy }) {
+export function TodoFilter({ onFilterBy, onClearComplete }) {
   return (
     <section className="todo-filter-section">
       <p>
@@ -19,7 +19,9 @@ export function TodoFilter({ onFilterBy }) {
           Complete
         </button>
       </div>
-      <button className="clear-complete-btn">Clear Complete</button>
+      <button className="clear-complete-btn" onClick={onClearComplete}>
+        Clear Complete
+      </button>
     </section>
   )
 }

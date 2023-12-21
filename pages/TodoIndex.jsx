@@ -13,10 +13,6 @@ export function TodoIndex() {
 
   useEffect(() => {
     loadTodos()
-  }, [])
-
-  useEffect(() => {
-    loadTodos()
   }, [filterBy])
 
   function loadTodos() {
@@ -38,8 +34,12 @@ export function TodoIndex() {
   }
 
   function onAddTodo(newTodo) {
+    newTodo = { ...todoService.getEmptyTodo(), todo: newTodo.todo }
     todoService.save(newTodo).then((addedTodo) => {
-      setTodos((prevTodos) => [addedTodo, ...prevTodos])
+      setTodos((prevTodos) => {
+        console.log({ addedTodo, ...prevTodos })
+        return [addedTodo, ...prevTodos]
+      })
     })
   }
 
@@ -47,11 +47,25 @@ export function TodoIndex() {
     setFilterBy(type)
   }
 
+  function onClearComplete() {
+    const completedTodoIds = todos.reduce((acc, todo) => {
+      if (todo.isDone) return [...acc, todo._id]
+      return acc
+    }, [])
+    todoService.removeButch(completedTodoIds).then(() => {
+      setTodos((prevTodos) => {
+        return prevTodos.filter(
+          (prevTodo) => !completedTodoIds.includes(prevTodo._id)
+        )
+      })
+    })
+  }
+
   return (
     <section className="todo-index-page">
       <TodoInput onAddTodo={onAddTodo} />
       <TodoList todos={todos} onToggleTodo={onToggleTodo} />
-      <TodoFilter onFilterBy={onFilterBy} />
+      <TodoFilter onFilterBy={onFilterBy} onClearComplete={onClearComplete} />
     </section>
   )
 }

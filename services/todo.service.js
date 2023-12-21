@@ -1,5 +1,4 @@
 import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'todoDB'
@@ -11,6 +10,7 @@ export const todoService = {
   getById,
   save,
   remove,
+  removeButch,
   getEmptyTodo,
 }
 
@@ -33,8 +33,15 @@ function getById(todoId) {
 }
 function remove(todoId) {
   // return Promise.reject('Not now!')
+  console.log(todoId);
   return storageService.remove(STORAGE_KEY, todoId)
 }
+
+function removeButch(todoIds) {
+  // return Promise.reject('Not now!')
+  return storageService.removeBatch(STORAGE_KEY, todoIds)
+}
+
 function save(todo) {
   if (todo._id) {
     return storageService.put(STORAGE_KEY, todo)
@@ -48,12 +55,12 @@ function save(todo) {
 function getEmptyTodo() {
   return {
     todo: '',
-    isDone: '',
+    isDone: false,
   }
 }
 
 function _createTodos() {
-  storageService.query(STORAGE_KEY).then((todos) => {
+  return storageService.query(STORAGE_KEY).then((todos) => {
     if (todos && todos.length) return
     else {
       let todo = { todo: 'Some random todo', isDone: false }
