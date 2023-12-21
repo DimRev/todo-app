@@ -1,6 +1,12 @@
-export function TodoIndex(){
-
+import { TodoFilter } from '../cmps/TodoFilter.jsx';
+import { TodoList } from '../cmps/TodoList.jsx'
+import { TodoInput } from '../cmps/TodoInput.jsx'
+export function TodoIndex() {
   return (
-    <h1>TodoIndex</h1>
+    <section className="todo-index-page">
+      <TodoInput />
+      <TodoList />
+      <TodoFilter/>
+    </section>
   )
 }
