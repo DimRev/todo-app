@@ -4,6 +4,7 @@ const { createStore } = Redux
 
 export const SET_USER = 'SET_USER'
 export const SET_USER_SCORE = 'SET_USER_SCORE'
+export const UPDATE_PREFERENCES = 'UPDATE_PREFERENCES'
 
 export const SET_TODOS = 'SET_TODOS'
 export const TOGGLE_TODO_ISDONE = 'TOGGLE_TODO_ISDONE'
@@ -30,6 +31,7 @@ const initialState = {
 function appReducer(state = initialState, action = {}) {
   let todos
   let totalTodos
+  let loggedinUser
   switch (action.type) {
     //TO DOS
     case SET_TODOS:
@@ -69,6 +71,9 @@ function appReducer(state = initialState, action = {}) {
     case SET_USER_SCORE:
       const user = { ...state.loggedinUser, score: action.score }
       return { ...state, loggedinUser: user }
+    case UPDATE_PREFERENCES:
+      loggedinUser = {...state.loggedinUser, ...action.userPreferences}
+      return {...state, loggedinUser}
     default:
       return state
   }
