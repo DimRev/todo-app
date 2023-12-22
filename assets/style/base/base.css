@@ -48,23 +48,23 @@ a.active {
   text-decoration: underline;
 }
 
-li {
+li,
+ul {
+  margin: 0;
   list-style: none;
 }
 
 button {
   cursor: pointer;
 
-  padding: .3em .6em;
+  padding: 0.3em 0.6em;
   border-radius: 15px;
   border: 2px solid #000000cc;
 
   background-color: #ffffff99;
   font-family: 'Edu VIC WA NT Beginner', cursive;
 
-  transition:
-    background-color .3s ease,
-    border .3s ease;
+  transition: background-color 0.3s ease, border 0.3s ease;
 }
 
 button:hover {
