@@ -1,0 +1,12 @@
+.user-msg{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  translate: 50% 50%;
+  z-index: 100;
+
+  background-color: #ffffff33;
+
+  padding: 1em .6em;
+  border-radius: 15px;
+}

@@ -6,7 +6,7 @@ const { useNavigate } = ReactRouter
 export function AppFooter() {
   return (
     <footer className="app-footer">
-      <h1>footer</h1>
+      <p>&copy; Made by DimRev</p>
     </footer>
   )
 }

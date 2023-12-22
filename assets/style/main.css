@@ -7,6 +7,9 @@
 @import './base/layout.css';
 
 /* Pages */
+@import './pages/TodoIndex.css';
+@import './pages/ProfilePage.css';
 
 /* Components */
 @import './cmps/AppHeader.css';
+@import './cmps/UserMsg.css';

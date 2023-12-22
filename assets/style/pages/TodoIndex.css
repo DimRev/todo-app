@@ -1,0 +1,37 @@
+.todo-index-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-search-section{
+  margin-block-start: .7em;
+}
+
+.todo-input-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-search-section input,
+.todo-input-section input {
+  width: 400px;
+
+  border-radius: 15px;
+  padding: .5em 1em;
+  margin: 0 0 .5em;
+}
+
+.todo-input-section button {
+  place-self: center;
+}
+
+.todo-list-section {
+  flex: 1;
+  width: 100%;
+}
+
+.todo-filter-section button{
+  width: 8em;
+  justify-self: end;
+}

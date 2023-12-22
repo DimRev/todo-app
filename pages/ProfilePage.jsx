@@ -8,6 +8,7 @@ export function ProfilePage() {
   const dispatch = useDispatch()
   const user = useSelector((storeState) => storeState.loggedinUser)
 
+  const [isExpend, setIsExpend] = useState(false)
   const [userPreferences, setUserPreferences] = useState({
     fullname: user.fullname,
     backgroundColor: user.backgroundColor,
@@ -57,13 +58,16 @@ export function ProfilePage() {
   }
 
   const sectionStyle = () => {
-    if(!user) return { backgroundColor: '#ffffff', color: '#000000' }
-    return { backgroundColor: user.backgroundColor || '#ffffff', color: user.textColor || '#000000' }
+    if (!user) return { backgroundColor: '#ffffff', color: '#000000' }
+    return {
+      backgroundColor: user.backgroundColor || '#ffffff',
+      color: user.textColor || '#000000',
+    }
   }
 
   return (
     <section className="main-section profile-page" style={sectionStyle()}>
-      <form onSubmit={handleSubmit}>
+      <form className='profile-form' onSubmit={handleSubmit}>
         <label htmlFor="fullname">Fullname</label>
         <input
           type="text"
@@ -95,15 +99,22 @@ export function ProfilePage() {
       </form>
       <ul>
         {user.activities && user.activities.length ? (
-          user.activities.map((activity) => (
-            <li>
-              {activity.activity} {handleTs(activity.ts)}
-            </li>
-          ))
+          user.activities.map((activity, idx) => {
+            if (idx < 9 || isExpend)
+              return (
+                <li>
+                  <p>
+                    {activity.activity} {handleTs(activity.ts)}
+                  </p>
+                </li>
+              )
+          })
         ) : (
           <h1>Doesn't exit</h1>
         )}
       </ul>
+      <button
+        onClick={() => setIsExpend((prevIsExpend) => !prevIsExpend)}>Show all logs</button>
     </section>
   )
 }

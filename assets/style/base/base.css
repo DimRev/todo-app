@@ -22,11 +22,13 @@ h6 {
 
 p {
   margin: 0 0 1em;
+  font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 
 a {
   text-decoration: none;
   color: unset;
+  font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 
 /* Don't stretch my Media */
@@ -44,4 +46,28 @@ object {
 
 a.active {
   text-decoration: underline;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+
+  padding: .3em .6em;
+  border-radius: 15px;
+  border: 2px solid #000000cc;
+
+  background-color: #ffffff99;
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+
+  transition:
+    background-color .3s ease,
+    border .3s ease;
+}
+
+button:hover {
+  border: 2px solid #00000066;
+  background-color: #ffffff33;
 }
