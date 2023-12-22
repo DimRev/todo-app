@@ -2,6 +2,8 @@ import { AppFooter } from './cmps/AppFooter.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { AboutPage } from './pages/AboutPage.jsx'
 import { HomePage } from './pages/HomePage.jsx'
+import { TodoDetails } from './pages/TodoDetails.jsx'
+import { TodoEdit } from './pages/TodoEdit.jsx'
 import { TodoIndex } from './pages/TodoIndex.jsx'
 
 const Router = ReactRouterDOM.HashRouter
@@ -17,14 +19,16 @@ export class App extends React.Component {
         <Router>
           <section className="app">
             <AppHeader />
-            <main className='app-main'>
+            <main className="app-main">
               <Routes>
                 <Route element={<HomePage />} path="/" />
                 <Route element={<TodoIndex />} path="/todo" />
+                <Route element={<TodoDetails />} path="/todo/details/:todoId" />
+                <Route element={<TodoEdit />} path="/todo/:todoId" />
                 <Route element={<AboutPage />} path="/about" />
               </Routes>
             </main>
-          <AppFooter />
+            <AppFooter />
           </section>
         </Router>
       </Provider>
