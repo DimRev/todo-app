@@ -30,10 +30,10 @@ export function TodoIndex() {
 
   useEffect(() => {
     loadTodos()
-  }, [filterBy,searchWord])
+  }, [filterBy, searchWord])
 
   function loadTodos() {
-    todoService.query(filterBy, searchWord).then((todos) => {
+    todoService.query(filterBy, searchWord, user).then((todos) => {
       dispatch({ type: SET_TODOS, todos })
     })
   }
@@ -42,6 +42,7 @@ export function TodoIndex() {
     const toggledTodo = { ...todo, isDone: !todo.isDone }
     todoService.save(toggledTodo).then((updatedTodo) => {
       dispatch({ type: TOGGLE_TODO_ISDONE, updatedTodo })
+      loadTodos()
     })
   }
 
@@ -67,10 +68,9 @@ export function TodoIndex() {
     }, [])
     todoService.removeButch(completedTodoIds).then(() => {
       dispatch({ type: CLEAR_COMPLETED_TODOS, completedTodoIds })
+      loadTodos()
     })
   }
-
-
 
   return (
     <section className="todo-index-page">

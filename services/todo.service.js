@@ -48,26 +48,27 @@ export const todoService = {
   getEmptyTodo,
 }
 
-function query(filterBy, searchWord) {
+function query(filterBy, searchWord, user) {
   // return axios.get(BASE_URL).then(res => res.data)
-  return storageService.query(STORAGE_KEY).then((todos) => {
+  return storageService.query(STORAGE_KEY, user).then((todos) => {
+    let totalTodos = todos.filter((todo) => user._id === todo.owner._id)
     let filteredTodos
     switch (filterBy) {
       case 'all':
-        filteredTodos = [...todos]
+        filteredTodos = [...totalTodos]
         break
       case 'active':
-        filteredTodos = todos.filter((todo) => !todo.isDone)
+        filteredTodos = totalTodos.filter((todo) => !todo.isDone)
         break
       case 'complete':
-        filteredTodos = todos.filter((todo) => todo.isDone)
+        filteredTodos = totalTodos.filter((todo) => todo.isDone)
         break
     }
     if (searchWord) {
       const regExp = new RegExp(searchWord, 'i')
-      filteredTodos = filteredTodos.filter(todo => regExp.test(todo.todo))
-  }
-    return filteredTodos
+      filteredTodos = filteredTodos.filter((todo) => regExp.test(todo.todo))
+    }
+    return { totalTodos, filteredTodos }
   })
 }
 function getById(todoId) {

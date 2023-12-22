@@ -1,11 +1,11 @@
 const { useState, useEffect } = React
 
-export function TodoSearch({onSearch}) {
-  const [search, setSearch] = useState('')
+export function TodoSearch({ onSearch }) {
+  const [search, setSearch] = useState({ txt: '' })
 
   useEffect(() => {
     onSearch(search.txt)
-  },[search])
+  }, [search])
 
   function handleChange({ target }) {
     const { name: field, value } = target

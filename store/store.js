@@ -20,6 +20,7 @@ export const SET_SEARCHWORD = 'SET_SEARCHWORD'
 
 const initialState = {
   todos: [],
+  totalTodos: [],
   isLoading: false,
   filterBy: 'all',
   searchWord: '',
@@ -28,17 +29,24 @@ const initialState = {
 
 function appReducer(state = initialState, action = {}) {
   let todos
+  let totalTodos
   switch (action.type) {
     //TO DOS
     case SET_TODOS:
-      return { ...state, todos: action.todos }
+      return {
+        ...state,
+        todos: action.todos.filteredTodos,
+        totalTodos: action.todos.totalTodos,
+      }
 
     case TOGGLE_TODO_ISDONE:
       todos = state.todos.map((todo) =>
         todo._id === action.updatedTodo._id ? action.updatedTodo : todo
       )
-      return { ...state, todos }
-
+      totalTodos = state.totalTodos.map((todo) =>
+        todo._id === action.updatedTodo._id ? action.updatedTodo : todo
+      )
+      return { ...state, todos, totalTodos }
     case ADD_TODO:
       todos = [action.addedTodo, ...state.todos]
       return { ...state, todos }

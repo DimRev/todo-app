@@ -1,7 +1,7 @@
 const { useState } = React
 
 export function TodoInput({ onAddTodo }) {
-  const [newTodo, setNewTodo] = useState('')
+  const [newTodo, setNewTodo] = useState({ todo: '' })
 
   function handleChange({ target }) {
     const { name: field, value } = target

@@ -14,6 +14,13 @@ export function AppHeader() {
   const navigate = useNavigate()
 
   const user = useSelector((storeState) => storeState.loggedinUser)
+  const totalTodos = useSelector((storeState) => storeState.totalTodos)
+
+  function progressBar() {
+    const totalTodosCount = totalTodos.length
+    const completedTodosCount = totalTodos.filter((todo) => todo.isDone).length
+    return `${(completedTodosCount / totalTodosCount) * 100} %`
+  }
 
   function onLogout() {
     userService
@@ -51,6 +58,7 @@ export function AppHeader() {
               Hello {user.fullname} <span>${user.score.toLocaleString()}</span>
             </span>
             <button onClick={onLogout}>Logout</button>
+            <span>{progressBar()}</span>
           </section>
         ) : (
           <section>
