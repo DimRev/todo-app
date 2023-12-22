@@ -19,7 +19,9 @@ export function AppHeader() {
   function progressBar() {
     const totalTodosCount = totalTodos.length
     const completedTodosCount = totalTodos.filter((todo) => todo.isDone).length
-    return `${(completedTodosCount / totalTodosCount) * 100} %`
+    const completionRate = Math.floor(completedTodosCount / totalTodosCount * 100)
+    const completionRateStr = completionRate ? `${completionRate}% Completed` : `No Todos`
+    return completionRateStr
   }
 
   function onLogout() {
