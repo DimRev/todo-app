@@ -1,4 +1,5 @@
 const { useState, useEffect } = React
+const { useSelector, useDispatch } = ReactRedux
 
 import { TodoFilter } from '../cmps/TodoIndexCmps/TodoFilter.jsx'
 import { TodoList } from '../cmps/TodoIndexCmps/TodoList.jsx'
@@ -6,10 +7,19 @@ import { TodoInput } from '../cmps/TodoIndexCmps/TodoInput.jsx'
 
 import { todoService } from '../services/todo.service.js'
 
+import {
+  SET_TODOS,
+  TOGGLE_TODO_ISDONE,
+  ADD_TODO,
+  CLEAR_COMPLETED_TODOS,
+  SET_FILTERBY,
+} from '../store/store.js'
+
 export function TodoIndex() {
-  const [todos, setTodos] = useState(null)
-  const [filterBy, setFilterBy] = useState('all')
-  const [todoCount, setTodoCount] = useState(0)
+  const dispatch = useDispatch()
+
+  const todos = useSelector((storeState) => storeState.todos)
+  const filterBy = useSelector((storeState) => storeState.filterBy)
 
   useEffect(() => {
     loadTodos()
@@ -17,33 +27,26 @@ export function TodoIndex() {
 
   function loadTodos() {
     todoService.query(filterBy).then((todos) => {
-      setTodos(todos)
+      dispatch({ type: SET_TODOS, todos })
     })
   }
 
   function onToggleTodo(todo) {
     const toggledTodo = { ...todo, isDone: !todo.isDone }
     todoService.save(toggledTodo).then((updatedTodo) => {
-      setTodos((prevTodos) =>
-        prevTodos.map((todo) =>
-          updatedTodo._id === todo._id ? updatedTodo : todo
-        )
-      )
+      dispatch({ type: TOGGLE_TODO_ISDONE, updatedTodo })
     })
   }
 
   function onAddTodo(newTodo) {
     newTodo = { ...todoService.getEmptyTodo(), todo: newTodo.todo }
     todoService.save(newTodo).then((addedTodo) => {
-      setTodos((prevTodos) => {
-        console.log({ addedTodo, ...prevTodos })
-        return [addedTodo, ...prevTodos]
-      })
+      dispatch({ type: ADD_TODO, addedTodo })
     })
   }
 
-  function onFilterBy(type) {
-    setFilterBy(type)
+  function onFilterBy(filter) {
+    dispatch({ type: SET_FILTERBY, filter })
   }
 
   function onClearComplete() {
@@ -52,11 +55,7 @@ export function TodoIndex() {
       return acc
     }, [])
     todoService.removeButch(completedTodoIds).then(() => {
-      setTodos((prevTodos) => {
-        return prevTodos.filter(
-          (prevTodo) => !completedTodoIds.includes(prevTodo._id)
-        )
-      })
+      dispatch({ type: CLEAR_COMPLETED_TODOS, completedTodoIds })
     })
   }
 
