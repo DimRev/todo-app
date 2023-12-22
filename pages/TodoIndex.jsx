@@ -18,7 +18,6 @@ export function TodoIndex() {
   function loadTodos() {
     todoService.query(filterBy).then((todos) => {
       setTodos(todos)
-      console.log(todos)
     })
   }
 

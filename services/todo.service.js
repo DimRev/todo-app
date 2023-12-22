@@ -1,7 +1,41 @@
 import { storageService } from './async-storage.service.js'
 import { userService } from './user.service.js'
+import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'todoDB'
+
+const demoTodos = [
+  {
+    _id: utilService.makeId(),
+    todo: 'Some random todo1',
+    isDone: false,
+    owner: {
+      fullname: 'test',
+      score: 10000,
+      _id: '0uj8P',
+    },
+  },
+  {
+    _id: utilService.makeId(),
+    todo: 'Some random todo2',
+    isDone: false,
+    owner: {
+      fullname: 'test',
+      score: 10000,
+      _id: '0uj8P',
+    },
+  },
+  {
+    _id: utilService.makeId(),
+    todo: 'Some random todo3',
+    isDone: false,
+    owner: {
+      fullname: 'test',
+      score: 10000,
+      _id: '0uj8P',
+    },
+  },
+]
 
 _createTodos()
 
@@ -17,14 +51,13 @@ export const todoService = {
 function query(filterBy) {
   // return axios.get(BASE_URL).then(res => res.data)
   return storageService.query(STORAGE_KEY).then((todos) => {
-    console.log(filterBy);
     switch (filterBy) {
       case 'all':
         return todos
       case 'active':
-        return todos.filter(todo => todo.isDone)
-        case 'complete':
-        return todos.filter(todo => !todo.isDone)
+        return todos.filter((todo) => !todo.isDone)
+      case 'complete':
+        return todos.filter((todo) => todo.isDone)
     }
   })
 }
@@ -33,7 +66,7 @@ function getById(todoId) {
 }
 function remove(todoId) {
   // return Promise.reject('Not now!')
-  console.log(todoId);
+  console.log(todoId)
   return storageService.remove(STORAGE_KEY, todoId)
 }
 
@@ -60,32 +93,9 @@ function getEmptyTodo() {
 }
 
 function _createTodos() {
-  return storageService.query(STORAGE_KEY).then((todos) => {
-    if (todos && todos.length) return
-    else {
-      let todo = { todo: 'Some random todo', isDone: false }
-      todo.owner = {
-        fullname: 'test',
-        score: 10000,
-        _id: '0uj8P',
-      }
-      storageService.post(STORAGE_KEY, todo).then(() => {
-        let todo2 = { todo: 'Some random todo2', isDone: true }
-        todo2.owner = {
-          fullname: 'test',
-          score: 10000,
-          _id: '0uj8P',
-        }
-        storageService.post(STORAGE_KEY, todo2).then(() => {
-          let todo3 = { todo: 'Some random todo3', isDone: false }
-          todo3.owner = {
-            fullname: 'test',
-            score: 10000,
-            _id: '0uj8P',
-          }
-          storageService.post(STORAGE_KEY, todo3)
-        })
-      })
-    }
-  })
+  let notes = utilService.loadFromStorage(STORAGE_KEY)
+  if (!notes || !notes.length) {
+    notes = []
+    utilService.saveToStorage(STORAGE_KEY, demoTodos)
+  }
 }

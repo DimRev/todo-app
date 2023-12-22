@@ -5,9 +5,16 @@ const { createStore } = Redux
 export const SET_USER = 'SET_USER'
 export const SET_USER_SCORE = 'SET_USER_SCORE'
 
+// a. List of todos
+// b. isLoading
+// c. Current filterBy
+// d. User object
+
 const initialState = {
-  loggedinUser: userService.getLoggedinUser(),
   todos: [],
+  isLoading: false,
+  filterBy: 'all',
+  loggedinUser: userService.getLoggedinUser(),
 }
 
 function appReducer(state = initialState, action = {}) {

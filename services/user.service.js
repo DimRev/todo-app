@@ -10,6 +10,7 @@ export const userService = {
     getById,
     getLoggedinUser,
     updateScore,
+    addActivity,
     getEmptyCredentials
 }
 
@@ -31,6 +32,21 @@ function signup({ username, password, fullname }) {
     const user = { username, password, fullname, score: 10000 }
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
+}
+
+function addActivity(activity){
+    const loggedInUserId = getLoggedinUser()._id
+    return userService.getById(loggedInUserId)
+        .then(user => {
+            if (!user.activities) user.activities = [activity]
+            else user.activities = [...user.activities, activity]
+            return storageService.put(STORAGE_KEY, user)
+        })
+        .then(user => {
+            _setLoggedinUser(user)
+            return user.activities
+        })
+
 }
 
 
