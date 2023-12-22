@@ -9,6 +9,10 @@
   flex: 1; /* Take up remaining vertical space */
 }
 
+.main-section {
+  height: 100%;
+}
+
 .app-header {
   flex: 0 0 auto; /* Keep header at its natural height */
   background-color: lightskyblue;

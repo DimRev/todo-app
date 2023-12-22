@@ -62,7 +62,7 @@ export function ProfilePage() {
   }
 
   return (
-    <section className="profile-page" style={sectionStyle()}>
+    <section className="main-section profile-page" style={sectionStyle()}>
       <form onSubmit={handleSubmit}>
         <label htmlFor="fullname">Fullname</label>
         <input

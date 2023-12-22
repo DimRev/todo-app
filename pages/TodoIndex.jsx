@@ -101,7 +101,7 @@ export function TodoIndex() {
   }
 
   return (
-    <section className="todo-index-page" style={sectionStyle()}>
+    <section className="main-section todo-index-page" style={sectionStyle()}>
       <TodoSearch onSearch={debounceSearch.current} />
       <TodoInput onAddTodo={onAddTodo} />
       <TodoList todos={todos} onToggleTodo={onToggleTodo} />
