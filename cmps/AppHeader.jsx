@@ -19,8 +19,12 @@ export function AppHeader() {
   function progressBar() {
     const totalTodosCount = totalTodos.length
     const completedTodosCount = totalTodos.filter((todo) => todo.isDone).length
-    const completionRate = Math.floor(completedTodosCount / totalTodosCount * 100)
-    const completionRateStr = completionRate ? `${completionRate}% Completed` : `No Todos`
+    const completionRate = Math.floor(
+      (completedTodosCount / totalTodosCount) * 100
+    )
+    const completionRateStr = completionRate
+      ? `${completionRate}% Completed`
+      : `No Todos`
     return completionRateStr
   }
 
@@ -52,6 +56,7 @@ export function AppHeader() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/todo">Todos</NavLink>
         <NavLink to="/about">About</NavLink>
+        {user && <NavLink to="/profile">Profile</NavLink>}
       </section>
       <section className="main-login-section">
         {user ? (
