@@ -6,7 +6,6 @@ export function TodoInput({ onAddTodo }) {
   function handleChange({ target }) {
     const { name: field, value } = target
     setNewTodo((prevTodo) => ({ ...prevTodo, [field]: value }))
-    console.log(newTodo)
   }
   function onAddClick() {
     onAddTodo(newTodo)
@@ -20,6 +19,7 @@ export function TodoInput({ onAddTodo }) {
         name="todo"
         onChange={handleChange}
         value={newTodo.todo}
+        placeholder="Add a new Todo"
       />
       <button onClick={onAddClick}>Add Todo</button>
     </section>

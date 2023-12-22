@@ -11,6 +11,7 @@ export const ADD_TODO = 'ADD_TODO'
 export const CLEAR_COMPLETED_TODOS = 'CLEAR_COMPLETED_TODOS'
 
 export const SET_FILTERBY = 'SET_FILTERBY'
+export const SET_SEARCHWORD = 'SET_SEARCHWORD'
 
 // a. List of todos
 // b. isLoading
@@ -21,6 +22,7 @@ const initialState = {
   todos: [],
   isLoading: false,
   filterBy: 'all',
+  searchWord: '',
   loggedinUser: userService.getLoggedinUser(),
 }
 
@@ -49,6 +51,8 @@ function appReducer(state = initialState, action = {}) {
 
     case SET_FILTERBY:
       return { ...state, filterBy: action.filter }
+    case SET_SEARCHWORD:
+      return { ...state, searchWord: action.searchWord }
 
     case SET_USER:
       return { ...state, loggedinUser: action.user }

@@ -1,11 +1,13 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useSelector, useDispatch } = ReactRedux
 
+import { TodoSearch } from '../cmps/TodoIndexCmps/TodoSearch.jsx'
 import { TodoFilter } from '../cmps/TodoIndexCmps/TodoFilter.jsx'
 import { TodoList } from '../cmps/TodoIndexCmps/TodoList.jsx'
 import { TodoInput } from '../cmps/TodoIndexCmps/TodoInput.jsx'
 
 import { todoService } from '../services/todo.service.js'
+import { utilService } from '../services/util.service.js'
 
 import {
   SET_TODOS,
@@ -13,21 +15,25 @@ import {
   ADD_TODO,
   CLEAR_COMPLETED_TODOS,
   SET_FILTERBY,
+  SET_SEARCHWORD,
 } from '../store/store.js'
 
 export function TodoIndex() {
   const dispatch = useDispatch()
 
+  const debounceSearch = useRef(utilService.debounce(onSearch, 500))
+
   const todos = useSelector((storeState) => storeState.todos)
   const filterBy = useSelector((storeState) => storeState.filterBy)
+  const searchWord = useSelector((storeState) => storeState.searchWord)
   const user = useSelector((storeState) => storeState.loggedinUser)
 
   useEffect(() => {
     loadTodos()
-  }, [filterBy])
+  }, [filterBy,searchWord])
 
   function loadTodos() {
-    todoService.query(filterBy).then((todos) => {
+    todoService.query(filterBy, searchWord).then((todos) => {
       dispatch({ type: SET_TODOS, todos })
     })
   }
@@ -50,6 +56,10 @@ export function TodoIndex() {
     dispatch({ type: SET_FILTERBY, filter })
   }
 
+  function onSearch(searchWord) {
+    dispatch({ type: SET_SEARCHWORD, searchWord })
+  }
+
   function onClearComplete() {
     const completedTodoIds = todos.reduce((acc, todo) => {
       if (todo.isDone) return [...acc, todo._id]
@@ -60,8 +70,11 @@ export function TodoIndex() {
     })
   }
 
+
+
   return (
     <section className="todo-index-page">
+      <TodoSearch onSearch={debounceSearch.current} />
       <TodoInput onAddTodo={onAddTodo} />
       <TodoList todos={todos} onToggleTodo={onToggleTodo} />
       <TodoFilter onFilterBy={onFilterBy} onClearComplete={onClearComplete} />
