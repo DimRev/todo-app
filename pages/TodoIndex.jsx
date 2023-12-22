@@ -8,6 +8,7 @@ import { TodoInput } from '../cmps/TodoIndexCmps/TodoInput.jsx'
 
 import { todoService } from '../services/todo.service.js'
 import { utilService } from '../services/util.service.js'
+import { userService } from '../services/user.service.js'
 
 import {
   SET_TODOS,
@@ -16,6 +17,7 @@ import {
   CLEAR_COMPLETED_TODOS,
   SET_FILTERBY,
   SET_SEARCHWORD,
+  ADD_ACTIVITY,
 } from '../store/store.js'
 
 export function TodoIndex() {
@@ -40,16 +42,30 @@ export function TodoIndex() {
 
   function onToggleTodo(todo) {
     const toggledTodo = { ...todo, isDone: !todo.isDone }
-    todoService.save(toggledTodo).then((updatedTodo) => {
-      dispatch({ type: TOGGLE_TODO_ISDONE, updatedTodo })
-    })
+    todoService
+      .save(toggledTodo)
+      .then((updatedTodo) => {
+        dispatch({ type: TOGGLE_TODO_ISDONE, updatedTodo })
+      })
+      .then(() => {
+        userService.addActivity('Toggled Todo').then((activities) => {
+          dispatch({ type: ADD_ACTIVITY, activities })
+        })
+      })
   }
 
   function onAddTodo(newTodo) {
     newTodo = { ...todoService.getEmptyTodo(), todo: newTodo.todo, owner: user }
-    todoService.save(newTodo).then((addedTodo) => {
-      dispatch({ type: ADD_TODO, addedTodo })
-    })
+    todoService
+      .save(newTodo)
+      .then((addedTodo) => {
+        dispatch({ type: ADD_TODO, addedTodo })
+      })
+      .then(() => {
+        userService.addActivity('Added Todo').then((activities) => {
+          dispatch({ type: ADD_ACTIVITY, activities })
+        })
+      })
   }
 
   function onFilterBy(filter) {
@@ -65,10 +81,16 @@ export function TodoIndex() {
       if (todo.isDone) return [...acc, todo._id]
       return acc
     }, [])
-    todoService.removeButch(completedTodoIds).then(() => {
-      dispatch({ type: CLEAR_COMPLETED_TODOS, completedTodoIds })
-      loadTodos()
-    })
+    todoService
+      .removeButch(completedTodoIds)
+      .then(() => {
+        dispatch({ type: CLEAR_COMPLETED_TODOS, completedTodoIds })
+      })
+      .then(() => {
+        userService.addActivity('Cleared Completed Todos').then((activities) => {
+          dispatch({ type: ADD_ACTIVITY, activities })
+        })
+      })
   }
 
   return (

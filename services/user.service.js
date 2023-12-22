@@ -35,17 +35,19 @@ function signup({ username, password, fullname }) {
     score: 10000,
     backgroundColor: '#ffffff',
     textColor: '#000000',
+    activities: [],
   }
   return storageService.post(STORAGE_KEY, user).then(_setLoggedinUser)
 }
 
 function addActivity(activity) {
+  const ts = Date.now()
   const loggedInUserId = getLoggedinUser()._id
   return userService
     .getById(loggedInUserId)
     .then((user) => {
-      if (!user.activities) user.activities = [activity]
-      else user.activities = [...user.activities, activity]
+      if (!user.activities) user.activities = [{ activity, ts }]
+      else user.activities = [{ activity, ts }, ...user.activities]
       return storageService.put(STORAGE_KEY, user)
     })
     .then((user) => {
@@ -99,6 +101,7 @@ function _setLoggedinUser(user) {
     score: user.score,
     backgroundColor: user.backgroundColor,
     textColor: user.textColor,
+    activities: user.activities || [],
   }
   sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
   return userToSave
