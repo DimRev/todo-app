@@ -56,8 +56,13 @@ export function ProfilePage() {
     return '~' + Math.floor(ts) + ' years ago'
   }
 
+  const sectionStyle = () => {
+    if(!user) return { backgroundColor: '#ffffff', color: '#000000' }
+    return { backgroundColor: user.backgroundColor || '#ffffff', color: user.textColor || '#000000' }
+  }
+
   return (
-    <section className="profile-page">
+    <section className="profile-page" style={sectionStyle()}>
       <form onSubmit={handleSubmit}>
         <label htmlFor="fullname">Fullname</label>
         <input

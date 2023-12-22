@@ -22,10 +22,8 @@ export function AppHeader() {
     const completionRate = Math.floor(
       (completedTodosCount / totalTodosCount) * 100
     )
-    const completionRateStr = completionRate
-      ? `${completionRate}% Completed`
-      : `No Todos`
-    return completionRateStr
+    if (completionRate >= 0) return completionRate + '%'
+    else 'No Todos to display'
   }
 
   function onLogout() {

@@ -1,9 +1,6 @@
-export function TodoFilter({ onFilterBy, onClearComplete }) {
+export function TodoFilter({ onFilterBy, onClearComplete}) {
   return (
     <section className="todo-filter-section">
-      <p>
-        #<span className="count-span">count</span># items left
-      </p>
       <div className="filter-btns">
         <button className="all-filter-btn" onClick={() => onFilterBy('all')}>
           All

@@ -87,14 +87,21 @@ export function TodoIndex() {
         dispatch({ type: CLEAR_COMPLETED_TODOS, completedTodoIds })
       })
       .then(() => {
-        userService.addActivity('Cleared Completed Todos').then((activities) => {
-          dispatch({ type: ADD_ACTIVITY, activities })
-        })
+        userService
+          .addActivity('Cleared Completed Todos')
+          .then((activities) => {
+            dispatch({ type: ADD_ACTIVITY, activities })
+          })
       })
   }
 
+  const sectionStyle = () => {
+    if(!user) return { backgroundColor: '#ffffff', color: '#000000' }
+    return { backgroundColor: user.backgroundColor || '#ffffff', color: user.textColor || '#000000' }
+  }
+
   return (
-    <section className="todo-index-page">
+    <section className="todo-index-page" style={sectionStyle()}>
       <TodoSearch onSearch={debounceSearch.current} />
       <TodoInput onAddTodo={onAddTodo} />
       <TodoList todos={todos} onToggleTodo={onToggleTodo} />
