@@ -42,7 +42,6 @@ export function TodoIndex() {
     const toggledTodo = { ...todo, isDone: !todo.isDone }
     todoService.save(toggledTodo).then((updatedTodo) => {
       dispatch({ type: TOGGLE_TODO_ISDONE, updatedTodo })
-      loadTodos()
     })
   }
 

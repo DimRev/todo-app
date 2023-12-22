@@ -10,9 +10,9 @@ const demoTodos = [
     todo: 'Some random todo1',
     isDone: false,
     owner: {
-      fullname: 'test',
+      fullname: 'demoData',
       score: 10000,
-      _id: '0uj8P',
+      _id: 'demoData',
     },
   },
   {
@@ -20,9 +20,9 @@ const demoTodos = [
     todo: 'Some random todo2',
     isDone: false,
     owner: {
-      fullname: 'test',
+      fullname: 'demoData',
       score: 10000,
-      _id: '0uj8P',
+      _id: 'demoData',
     },
   },
   {
@@ -30,9 +30,9 @@ const demoTodos = [
     todo: 'Some random todo3',
     isDone: false,
     owner: {
-      fullname: 'test',
+      fullname: 'demoData',
       score: 10000,
-      _id: '0uj8P',
+      _id: 'demoData',
     },
   },
 ]
@@ -51,7 +51,7 @@ export const todoService = {
 function query(filterBy, searchWord, user) {
   // return axios.get(BASE_URL).then(res => res.data)
   return storageService.query(STORAGE_KEY, user).then((todos) => {
-    let totalTodos = todos.filter((todo) => user._id === todo.owner._id)
+    let totalTodos = user ? todos.filter((todo) => user._id === todo.owner._id) : todos.filter((todo) => 'demoData' === todo.owner._id)
     let filteredTodos
     switch (filterBy) {
       case 'all':
@@ -102,9 +102,9 @@ function getEmptyTodo() {
 }
 
 function _createTodos() {
-  let notes = utilService.loadFromStorage(STORAGE_KEY)
-  if (!notes || !notes.length) {
-    notes = []
+  let todos = utilService.loadFromStorage(STORAGE_KEY)
+  if (!todos || !todos.length) {
+    todos = []
     utilService.saveToStorage(STORAGE_KEY, demoTodos)
   }
 }

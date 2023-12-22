@@ -47,9 +47,11 @@ function appReducer(state = initialState, action = {}) {
         todo._id === action.updatedTodo._id ? action.updatedTodo : todo
       )
       return { ...state, todos, totalTodos }
+
     case ADD_TODO:
       todos = [action.addedTodo, ...state.todos]
-      return { ...state, todos }
+      totalTodos = [action.addedTodo, ...state.totalTodos]
+      return { ...state, todos, totalTodos }
 
     case CLEAR_COMPLETED_TODOS:
       todos = state.todos.filter(
