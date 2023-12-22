@@ -20,6 +20,7 @@ export function TodoIndex() {
 
   const todos = useSelector((storeState) => storeState.todos)
   const filterBy = useSelector((storeState) => storeState.filterBy)
+  const user = useSelector((storeState) => storeState.loggedinUser)
 
   useEffect(() => {
     loadTodos()
@@ -39,7 +40,7 @@ export function TodoIndex() {
   }
 
   function onAddTodo(newTodo) {
-    newTodo = { ...todoService.getEmptyTodo(), todo: newTodo.todo }
+    newTodo = { ...todoService.getEmptyTodo(), todo: newTodo.todo, owner: user }
     todoService.save(newTodo).then((addedTodo) => {
       dispatch({ type: ADD_TODO, addedTodo })
     })

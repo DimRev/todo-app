@@ -14,7 +14,6 @@ export function AppHeader() {
   const navigate = useNavigate()
 
   const user = useSelector((storeState) => storeState.loggedinUser)
-  const isCartShown = useSelector((storeState) => storeState.isCartShown)
 
   function onLogout() {
     userService
