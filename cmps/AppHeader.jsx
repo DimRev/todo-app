@@ -22,8 +22,16 @@ export function AppHeader() {
     const completionRate = Math.floor(
       (completedTodosCount / totalTodosCount) * 100
     )
-    if (completionRate >= 0) return completionRate + '%'
-    else 'No Todos to display'
+    if (completionRate >= 0) return completionRate
+  }
+
+  function progressBarClass() {
+    const completionRate = +progressBar()
+    if (completionRate === 100) return 'done'
+    if (completionRate >= 75) return 'high'
+    if (completionRate >= 50) return 'mid'
+    if (completionRate >= 25) return 'low'
+    if (completionRate >= 0) return 'empty'
   }
 
   function onLogout() {
@@ -58,15 +66,15 @@ export function AppHeader() {
       </section>
       <section className="main-login-section">
         {user ? (
-          <section>
-            <span to={`/user/${user._id}`}>
-              Hello {user.fullname} <span>${user.score.toLocaleString()}</span>
+          <section className="loggedin-section">
+            <span className={`progress-bar ${progressBarClass()}`}>
+              {progressBar()}%
             </span>
+            <span to={`/user/${user._id}`}>Hello {user.fullname}</span>
             <button onClick={onLogout}>Logout</button>
-            <span>{progressBar()}</span>
           </section>
         ) : (
-          <section>
+          <section className="logged-out-section">
             <LoginSignup onSetUser={onSetUser} />
           </section>
         )}

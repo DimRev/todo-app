@@ -1,10 +1,50 @@
-.app-header{
+.app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.app-header .main-nav-section{
+.app-header .main-nav-section {
   display: flex;
   gap: 1em;
+}
+
+.main-login-section .loggedin-section {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.app-header .progress-bar {
+  display: inline-block;
+
+  width: 70px;
+  text-align: center;
+
+  padding: 0.3em 1em;
+  border-radius: 1000px;
+
+  background-color: #ffffff66;
+  box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.5);
+}
+
+.app-header .progress-bar.empty {
+  box-shadow: inset 0px 0px 3px 1px rgba(255, 0, 0, 0.7),
+    inset 0px 0px 100px 1px rgba(255, 0, 0, 0.5);
+}
+.app-header .progress-bar.low {
+  box-shadow: inset 0px 0px 3px 1px rgba(255, 70, 0, 0.7),
+    inset 0px 0px 100px 1px rgba(255, 70, 0, 0.5);
+}
+.app-header .progress-bar.mid {
+  box-shadow: inset 0px 0px 3px 1px rgba(255, 155, 0, 0.7),
+    inset 0px 0px 100px 1px rgba(255, 155, 0, 0.5);
+}
+.app-header .progress-bar.high {
+  box-shadow: inset 0px 0px 3px 1px rgba(0, 205, 0, 0.7),
+    inset 0px 0px 100px 1px rgba(0, 200, 0, 0.5);
+}
+.app-header .progress-bar.done {
+  box-shadow: inset 0px 0px 3px 1px rgba(0, 255, 0, 0.7),
+  inset 0px 0px 100px 1px rgba(0, 255, 0, 0.5);
 }
