@@ -1,4 +1,4 @@
-const { useState, useEffect, useRef } = React
+const { useEffect, useRef } = React
 const { useSelector, useDispatch } = ReactRedux
 
 import { TodoSearch } from '../cmps/TodoIndexCmps/TodoSearch.jsx'
