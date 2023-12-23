@@ -29,6 +29,56 @@
 .todo-list-section {
   flex: 1;
   width: 100%;
+
+  border-radius: 15px;
+  padding: 1em;
+  margin: 1em 0;
+}
+.todo-list-section div.todo-list-frame {
+  height: 100%;
+
+  padding: .5em;
+  border-radius: 15px;
+
+  background-color: #00000022;
+  box-shadow: inset 0px 0px 3px 2px rgba(0, 0, 0, .2);
+}
+
+.todo-list-section div.todo-list-item {
+  padding: .3em 1em;
+
+  background-color: #00000033;
+}
+
+.todo-list-section .todo-item-preview{
+  cursor: pointer;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto auto ;
+  justify-items: center;
+  align-items: center;
+
+}
+
+.todo-list-section div.todo-list-item:first-child{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.todo-list-section div.todo-list-item:last-child {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.todo-list-section div.todo-list-item:nth-child(2n) {
+  background-color: #ffffff66;
+}
+
+.todo-list-section div.todo-list-item.complete {
+  box-shadow: inset 0px 0px 1000px 1px rgba(0, 255, 0, .5);
+}
+
+.todo-list-section div.todo-list-item.complete span {
+  text-decoration: line-through;
 }
 
 .todo-filter-section button{

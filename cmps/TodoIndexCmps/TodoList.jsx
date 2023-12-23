@@ -3,13 +3,15 @@ export function TodoList({ todos, onToggleTodo }) {
   if (!todos) return
   return (
     <section className="todo-list-section">
-      <ul>
+      <div className="todo-list-frame">
         {todos.map((todo) => (
-          <li key={todo._id}>
+          <div
+            className={`todo-list-item ${todo.isDone ? 'complete' : 'active'}`}
+            key={todo._id}>
             <TodoPreview onToggleTodo={onToggleTodo} todo={todo} />
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   )
 }
