@@ -11,7 +11,6 @@ import { utilService } from '../services/util.service.js'
 import { loadTodos, toggleTodo, addTodo, clearComplete, setFilter, setSearchWord } from '../store/actions/todo.actions.js'
 
 export function TodoIndex() {
-  const dispatch = useDispatch()
 
   const debounceSearch = useRef(utilService.debounce(onSearch, 500))
 

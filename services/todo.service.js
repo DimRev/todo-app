@@ -1,5 +1,4 @@
 import { storageService } from './async-storage.service.js'
-import { userService } from './user.service.js'
 import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'todoDB'
@@ -79,7 +78,6 @@ function getById(todoId) {
 }
 function remove(todoId) {
   // return Promise.reject('Not now!')
-  console.log(todoId)
   return storageService.remove(STORAGE_KEY, todoId)
 }
 

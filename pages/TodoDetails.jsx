@@ -25,7 +25,6 @@ export function TodoDetails() {
     }
   }
 
-  console.log(selectedTodo)
   if (!user || !selectedTodo)
     return (
       <section className="main-section" style={sectionStyle()}>

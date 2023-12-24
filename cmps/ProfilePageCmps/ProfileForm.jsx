@@ -1,11 +1,9 @@
 const { useState } = React
-const { useSelector, useDispatch } = ReactRedux
+const { useSelector } = ReactRedux
 
-import { userService } from '../../services/user.service.js'
-import { UPDATE_PREFERENCES, ADD_ACTIVITY } from '../../store/reducers/user.reducer.js'
+import { setPreferences } from '../../store/actions/user.actions.js'
 
 export function ProfileForm() {
-  const dispatch = useDispatch()
   const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   const [userPreferences, setUserPreferences] = useState({
@@ -24,18 +22,7 @@ export function ProfileForm() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    userService
-      .updatePreferences(userPreferences)
-      .then(() => {
-        dispatch({ type: UPDATE_PREFERENCES, userPreferences })
-      })
-      .then(() => {
-        userService
-          .addActivity('Updated Profile Preferences')
-          .then((activities) => {
-            dispatch({ type: ADD_ACTIVITY, activities })
-          })
-      })
+    setPreferences(userPreferences)
   }
 
   return (

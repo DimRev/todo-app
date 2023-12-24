@@ -1,20 +1,18 @@
 import { LoginSignup } from './LoginSignup.jsx'
 import { UserMsg } from './UserMsg.jsx'
 
-import { userService } from '../services/user.service.js'
-import { SET_CART_IS_SHOWN, SET_USER } from '../store/reducers/user.reducer.js'
+import { logout, setUser } from '../store/actions/user.actions.js'
 
-const { useState } = React
 const { useSelector, useDispatch } = ReactRedux
-const { Link, NavLink } = ReactRouterDOM
+const { NavLink } = ReactRouterDOM
 const { useNavigate } = ReactRouter
 
 export function AppHeader() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const user = useSelector((storeState) => storeState.userModule.loggedinUser)
-  const totalTodos = useSelector((storeState) => storeState.todoModule.totalTodos)
+  const totalTodos = useSelector(
+    (storeState) => storeState.todoModule.totalTodos
+  )
 
   function progressBar() {
     const totalTodosCount = totalTodos.length
@@ -35,22 +33,11 @@ export function AppHeader() {
   }
 
   function onLogout() {
-    userService
-      .logout()
-      .then(() => {
-        // DONE: use dispatch
-        onSetUser(null)
-      })
-      .catch((err) => {
-        showErrorMsg('OOPs try again')
-      })
+    logout()
   }
 
   function onSetUser(user) {
-    // DONE: use dispatch
-    // setUser(user)
-    dispatch({ type: SET_USER, user })
-    navigate('/')
+    setUser(user)
   }
 
   return (
@@ -71,7 +58,7 @@ export function AppHeader() {
               {progressBar()}%
             </span>
             <span to={`/user/${user._id}`}>Hello {user.fullname}</span>
-            <button onClick={onLogout}>Logout</button>
+            <button onClick={()=>onLogout()}>Logout</button>
           </section>
         ) : (
           <section className="logged-out-section">

@@ -17,7 +17,6 @@ const initialState = {
 export function todoReducer(state = initialState, action = {}) {
   let todos
   let totalTodos
-  console.log(state, action)
   switch (action.type) {
     //---------------------TODOS-----------------------------//
     case SET_TODOS:

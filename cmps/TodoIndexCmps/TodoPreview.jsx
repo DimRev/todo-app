@@ -1,5 +1,5 @@
-const { Link, NavLink } = ReactRouterDOM
-const { useSelector, useDispatch } = ReactRedux
+const { Link } = ReactRouterDOM
+const { useSelector } = ReactRedux
 
 export function TodoPreview({ onToggleTodo, todo }) {
   const user = useSelector((storeState) => storeState.userModule.loggedinUser)
