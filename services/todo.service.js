@@ -50,8 +50,10 @@ export const todoService = {
 
 function query(filterBy, searchWord, user) {
   // return axios.get(BASE_URL).then(res => res.data)
-  return storageService.query(STORAGE_KEY, user).then((todos) => {
-    let totalTodos = user ? todos.filter((todo) => user._id === todo.owner._id) : todos.filter((todo) => 'demoData' === todo.owner._id)
+  return storageService.query(STORAGE_KEY).then((todos) => {
+    let totalTodos = user
+      ? todos.filter((todo) => user._id === todo.owner._id)
+      : todos.filter((todo) => 'demoData' === todo.owner._id)
     let filteredTodos
     switch (filterBy) {
       case 'all':
@@ -68,6 +70,7 @@ function query(filterBy, searchWord, user) {
       const regExp = new RegExp(searchWord, 'i')
       filteredTodos = filteredTodos.filter((todo) => regExp.test(todo.todo))
     }
+
     return { totalTodos, filteredTodos }
   })
 }

@@ -5,8 +5,8 @@ const { useParams } = ReactRouterDOM
 export function TodoEdit() {
   const dispatch = useDispatch()
 
-  const user = useSelector((storeState) => storeState.loggedinUser)
-  const todos = useSelector((storeState) => storeState.todos)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
+  const todos = useSelector((storeState) => storeState.todoModule.todos)
   const [selectedTodo, setSelectedTodo] = useState([])
   const { todoId } = useParams()
 

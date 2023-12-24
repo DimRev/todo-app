@@ -2,7 +2,7 @@ import { LoginSignup } from './LoginSignup.jsx'
 import { UserMsg } from './UserMsg.jsx'
 
 import { userService } from '../services/user.service.js'
-import { SET_CART_IS_SHOWN, SET_USER } from '../store/store.js'
+import { SET_CART_IS_SHOWN, SET_USER } from '../store/reducers/user.reducer.js'
 
 const { useState } = React
 const { useSelector, useDispatch } = ReactRedux
@@ -13,8 +13,8 @@ export function AppHeader() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const user = useSelector((storeState) => storeState.loggedinUser)
-  const totalTodos = useSelector((storeState) => storeState.totalTodos)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
+  const totalTodos = useSelector((storeState) => storeState.todoModule.totalTodos)
 
   function progressBar() {
     const totalTodosCount = totalTodos.length

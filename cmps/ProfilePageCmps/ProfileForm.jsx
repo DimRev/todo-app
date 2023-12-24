@@ -2,11 +2,11 @@ const { useState } = React
 const { useSelector, useDispatch } = ReactRedux
 
 import { userService } from '../../services/user.service.js'
-import { UPDATE_PREFERENCES, ADD_ACTIVITY } from '../../store/store.js'
+import { UPDATE_PREFERENCES, ADD_ACTIVITY } from '../../store/reducers/user.reducer.js'
 
 export function ProfileForm() {
   const dispatch = useDispatch()
-  const user = useSelector((storeState) => storeState.loggedinUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   const [userPreferences, setUserPreferences] = useState({
     fullname: user.fullname,

@@ -1,6 +1,6 @@
 const { useSelector } = ReactRedux
 export function ProfileList({ isExpend }) {
-  const user = useSelector((storeState) => storeState.loggedinUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   function handleTs(ts) {
     ts = Date.now() - ts

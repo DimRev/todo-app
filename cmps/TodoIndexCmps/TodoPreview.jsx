@@ -2,7 +2,7 @@ const { Link, NavLink } = ReactRouterDOM
 const { useSelector, useDispatch } = ReactRedux
 
 export function TodoPreview({ onToggleTodo, todo }) {
-  const user = useSelector((storeState) => storeState.loggedinUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
   return (
     <React.Fragment>
       <div className="todo-item-preview" onClick={() => onToggleTodo(todo)}>

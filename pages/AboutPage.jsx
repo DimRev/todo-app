@@ -2,7 +2,7 @@ const { useSelector, useDispatch } = ReactRedux
 
 export function AboutPage(){
 
-  const user = useSelector((storeState) => storeState.loggedinUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   const sectionStyle = () => {
     if(!user) return { backgroundColor: '#ffffff', color: '#000000' }

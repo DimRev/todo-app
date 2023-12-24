@@ -4,7 +4,7 @@ const { useState } = React
 const { useSelector } = ReactRedux
 
 export function ProfilePage() {
-  const user = useSelector((storeState) => storeState.loggedinUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   const [isExpend, setIsExpend] = useState(false)
 
